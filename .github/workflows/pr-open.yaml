@@ -43,7 +43,6 @@ jobs:
         # Create a cluster
         vcluster create minimal-python-api-pr-${{ github.event.pull_request.number }} --namespace prs --expose 
         vcluster connect minimal-python-api-pr-${{ github.event.pull_request.number }} --namespace prs
-        export KUBECONFIG=$PWD/kubeconfig.yaml
         sleep 5
         kubectl get ingresses
 
