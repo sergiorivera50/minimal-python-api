@@ -1,5 +1,7 @@
 name: pr
 on:
+  workflow_dispatch:
+
   pull_request:
     branches:
     - main
@@ -34,13 +36,13 @@ jobs:
     - name: Deploy preview
       run: |
         # Install vCluster
-        curl -s -L "https://github.com/loft-sh/vcluster/releases/latest" | sed -nE 's!.*"([^"]*vcluster-linux-amd64)".*!https://github.com\1!p' | xargs -n 1 curl -L -o vcluster && chmod +x vcluster;
-        sudo mv vcluster /usr/local/bin;
+        curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/latest/download/vcluster-linux-amd64" && \
+        sudo install -c -m 0755 vcluster /usr/local/bin && sudo rm vcluster
+        vcluster --version
 
         # Create a cluster
         vcluster create minimal-python-api-pr-${{ github.event.pull_request.number }} --namespace prs --expose 
         vcluster connect minimal-python-api-pr-${{ github.event.pull_request.number }} --namespace prs
-        export KUBECONFIG=$PWD/kubeconfig.yaml
         sleep 5
         kubectl get ingresses
 
