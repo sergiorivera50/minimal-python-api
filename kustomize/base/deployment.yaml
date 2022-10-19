@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minimal-python-api
+spec:
+  selector:
+    matchLabels:
+      app: minimal-python-api
+  template:
+    metadata:
+      labels:
+        app: minimal-python-api
+    spec:
+      containers:
+      - name: minimal-python-api
+        image: sergiorivera50/minimal-python-api:0.0.1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
