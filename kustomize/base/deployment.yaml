@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: minimal-python-api
-        image: sergiorivera50/minimal-python-api:0.0.1
+        image: sergiorivera50/minimal-python-api
         resources:
           limits:
             memory: "128Mi"
